@@ -2,35 +2,43 @@ import { model, Schema } from 'mongoose';
 import { TUser, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
+import { USER_ROLE } from './user.constant';
 
 const userSchema = new Schema<TUser>(
   {
-    name: {
+    username: {
       type: String,
       required: true,
+      unique: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
     },
-    role: {
-      type: String,
-      enum: ['admin', 'user'],
-      required: true,
-    },
     password: {
       type: String,
       required: true,
-      select: 0,
+      select: false, // Hide password by default
     },
-    phone: {
+    profilePicture: {
       type: String,
-      required: true,
+      default: '',
     },
-    address: {
+    role: {
       type: String,
-      required: true,
+      enum: Object.keys(USER_ROLE),
+      default: 'USER',
+    },
+    followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    premiumUser: {
+      type: Boolean,
+      default: false,
     },
     isDeleted: {
       type: Boolean,
@@ -40,57 +48,59 @@ const userSchema = new Schema<TUser>(
   { timestamps: true },
 );
 
-// Query Middleware
-userSchema.pre('find', function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
-});
-
-userSchema.pre('findOne', function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
-});
+// // Middleware to exclude soft-deleted users
+// userSchema.pre(/^find/, function (next) {
+//   this.where({ isDeleted: { $ne: true } });
+//   next();
+// });
 
 userSchema.pre('aggregate', function (next) {
   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
   next();
 });
 
+// Hash password before saving
 userSchema.pre('save', async function (next) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this; // doc
+  if (!this.isModified('password')) return next();
 
-  // hashing password and save into DB
-  user.password = await bcrypt.hash(
-    user.password,
+  this.password = await bcrypt.hash(
+    this.password,
     Number(config.bcrypt_salt_rounds),
   );
-
   next();
 });
 
-// set '' after saving password
+// Remove password from response after saving
 userSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
 });
 
-userSchema.statics.isUserExistsByCustomId = async function (id: string) {
+// Static Methods
+userSchema.statics.isUserExistsById = async function (id: string) {
   return await User.findOne({ _id: id }).select('+password');
-  //.select('+password') adds the password field to the user that we get
 };
+
 userSchema.statics.isUserExistsByEmail = async function (email: string) {
-  return await User.findOne({ email: email }).select('+password');
-  //.select('+password') adds the password field to the user that we get
+  return await User.findOne({ email }).select('+password');
 };
 
 userSchema.statics.isPasswordMatched = async function (
-  plainTextPassword,
-  hashedPassword,
+  plainTextPassword: string,
+  hashedPassword: string,
 ) {
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
-// export const User = model('User', userSchema);
+userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
+  passwordChangedTimestamp: number,
+  jwtIssuedTimestamp: number
+) {
+  const passwordChangedTime =
+    new Date(passwordChangedTimestamp).getTime() / 1000;
+  return passwordChangedTime > jwtIssuedTimestamp;
+};
 
+
+// Export the model
 export const User = model<TUser, UserModel>('User', userSchema);
