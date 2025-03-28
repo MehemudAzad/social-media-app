@@ -5,11 +5,12 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 
 import { TLoginUser, TRegisterUser } from './auth.interface';
 
-import { User } from '../User/user.model';
+
 import AppError from '../../errors /AppError';
 import { createToken } from '../../utils/verifyJWT';
 import config from '../../config';
-import { USER_ROLE } from '../user/user.constant';
+import { USER_ROLE } from '../User/user.constant';
+import { User } from '../User/user.model';
 
 const registerUser = async (payload: TRegisterUser) => {
   // checking if the user is exist

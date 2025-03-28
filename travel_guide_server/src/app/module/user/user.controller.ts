@@ -13,7 +13,32 @@ const createUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getUserById = catchAsync(async (req, res) => {
+  const userId = req.params.id;
+  const result = await UserServices.getUserByIdFromDB(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User retrieved successfully',
+    data: result,
+  });
+});
+
+const getAllUsers = catchAsync(async (req, res) => {
+  const result = await UserServices.getAllUsersFromDB();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Users retrieved successfully',
+    data: result,
+  });
+});
 
 export const UserController = {
   createUser,
+  getUserById,
+  getAllUsers,
 };
+

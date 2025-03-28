@@ -1,6 +1,6 @@
-import { Types, Document, Model } from 'mongoose';
+import { Types, Model } from 'mongoose';
 
-export interface TPost extends Document {
+export type TPost = {
   title: string;
   content: string;
   category: 'Web' | 'Software Engineering' | 'AI' | 'Gadgets' | 'Other';

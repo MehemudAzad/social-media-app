@@ -6,18 +6,17 @@ const createUserIntoDB = async (user: TUser) => {
   return result;
 };
 
-const getAllOrdersFromDB = async () => {
-  const result = await User.find({});
-  return result;
+const getUserByIdFromDB = async (id: string) => {
+  return await User.findById(id);
 };
 
-const getOrderByEmailFromDB = async (email: string) => {
-  const result = await User.find({ email: email });
-  return result;
+const getAllUsersFromDB = async () => {
+  return await User.find({});
 };
 
 export const UserServices = {
   createUserIntoDB,
-  getAllOrdersFromDB,
-  getOrderByEmailFromDB,
+  getUserByIdFromDB,
+  getAllUsersFromDB,
 };
+
