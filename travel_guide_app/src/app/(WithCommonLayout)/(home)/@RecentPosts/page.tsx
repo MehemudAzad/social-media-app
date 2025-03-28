@@ -8,9 +8,14 @@ import { getRecentPosts } from "@/services/RecentPosts";
 import { Button } from "@heroui/button";
 import Link from "next/link";
 
+// import Container from "@/components/UI/Container";
+// import { getRecentPosts } from "@/services/RecentPosts";
+// import { Button } from "@heroui/button";
+// import Link from "next/link";
+
 export default async function RecentPosts() {
   const { data: posts } = await getRecentPosts();
-//   console.log(posts);
+  console.log(posts);
   
   return (
     <Container>

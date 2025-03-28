@@ -8,6 +8,7 @@ export default function Home() {
   return (
     <>
       <Landing />
+      <p>hello</p>
     </>
   );
 }
