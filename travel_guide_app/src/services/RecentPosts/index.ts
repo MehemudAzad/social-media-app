@@ -1,4 +1,4 @@
-import envConfig from "@/src/config/envConfig";
+// import envConfig from "@/src/config/envConfig";
 // import { delay } from "@/src/utils/delay";
 
 export const getRecentPosts = async () => {

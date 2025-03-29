@@ -2,14 +2,16 @@
   "name": "assignment-2",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "lint": "npx eslint .",
-    "lint:fix": "npx eslint . --fix",
-    "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+"scripts": {
+  "clean": "rimraf dist",
+  "build": "npm run clean && tsc",
+  "start": "node dist/server.js",
+  "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+  "lint": "npx eslint .",
+  "lint:fix": "npx eslint . --fix",
+  "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

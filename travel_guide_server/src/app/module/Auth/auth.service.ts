@@ -6,7 +6,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { TLoginUser, TRegisterUser } from './auth.interface';
 
 
-import AppError from '../../errors /AppError';
+import AppError from '../../errors/AppError';
 import { createToken } from '../../utils/verifyJWT';
 import config from '../../config';
 import { USER_ROLE } from '../User/user.constant';

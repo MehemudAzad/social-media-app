@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { USER_ROLE, USER_STATUS } from '../module/User/user.constant';
-import AppError from '../errors /AppError';
+import AppError from '../errors/AppError';
 
 // _id: user._id,
 //     name: user.name,
