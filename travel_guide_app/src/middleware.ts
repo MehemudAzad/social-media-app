@@ -16,11 +16,11 @@ export function middleware(request: NextRequest) {
 
   console.log(pathname);
 
-  //   const user = {
-  //     name: "Mir",
-  //     token: "adsf asda",
-  //     role: "ADMIN",
-  //   };
+    // const user = {
+    //   username: "Mir",
+    //   token: "adsf asda",
+    //   role: "ADMIN",
+    // };
 
   const user = undefined;
 

@@ -1,22 +1,12 @@
-// import Container from "@/components/UI/Container";
-// import { getRecentPosts } from "@/services/RecentPosts";
-// import { Button } from "@heroui/button";
-// import Link from "next/link";
-
 import Container from "@/components/UI/Container";
 import { getRecentPosts } from "@/services/RecentPosts";
 import { Button } from "@heroui/button";
 import Link from "next/link";
 
-// import Container from "@/components/UI/Container";
-// import { getRecentPosts } from "@/services/RecentPosts";
-// import { Button } from "@heroui/button";
-// import Link from "next/link";
-
 export default async function RecentPosts() {
   const { data: posts } = await getRecentPosts();
   console.log(posts);
-  
+
   return (
     <Container>
       <div className="section-title my-8">
@@ -24,7 +14,7 @@ export default async function RecentPosts() {
         <p className="text-center">Discover the latest Tech news</p>
       </div>
       <div className="my-8 grid justify-center gap-10 sm:grid-cols-1 md:grid-cols-4">
-        {posts.map((item) => (
+        {posts.map((item: any) => (
           <p key={item._id}>{item.title}</p>
         ))}
       </div>

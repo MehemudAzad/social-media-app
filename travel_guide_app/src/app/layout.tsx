@@ -8,7 +8,8 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/UI/navbar";
-import { Providers } from "./providers";
+import { Providers } from "@/lib/Providers";
+
 
 export const metadata: Metadata = {
   title: {
