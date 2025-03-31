@@ -1,9 +1,9 @@
 "use client";
 
-import FXForm from "@/components/form/FXForm";
-import FXInput from "@/components/form/FXInput";
-import { useUserRegistration } from "@/hooks/auth.hook";
-import registerValidationSchema from "@/schemas/register.schema";
+import FXForm from "@src/components/form/FXForm";
+import FXInput from "@src/components/form/FXInput";
+import { useUserRegistration } from "@src/hooks/auth.hook";
+import registerValidationSchema from "@src/schemas/register.schema";
 import { registerUser } from "@/services/AuthService";
 import { Button } from "@heroui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,13 +40,13 @@ export default function RegisterPage() {
 
   return (
     <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
-      <h3 className="my-2 text-xl font-bold">Register with FoundX</h3>
-      <p className="mb-4">Help Lost Items Find Their Way Home</p>
+      <h3 className="my-2 text-xl font-bold">Register with newsX</h3>
+      <p className="mb-4">Find all the latest news around the world</p>
       <div className="w-[35%]">
         <FXForm
           //! Only for development
           defaultValues={{
-            username: "Mehemud Azad",
+            username: "Mehemud",
             email: "mehemudazad@gmail.com",
             password: "123456",
           }}
@@ -69,7 +69,7 @@ export default function RegisterPage() {
           </div>
 
           <Button
-            className="my-3 w-full rounded-md bg-default-500 text-default"
+            className="my-3 w-full rounded-md bg-default-900 text-default"
             size="lg"
             type="submit"
           >

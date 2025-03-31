@@ -1,5 +1,5 @@
-import Container from "@/components/UI/Container";
-import { getRecentPosts } from "@/services/RecentPosts";
+import Container from "@src/components/UI/Container";
+import { getRecentPosts } from "@src/services/RecentPosts";
 import { Button } from "@heroui/button";
 import Link from "next/link";
 

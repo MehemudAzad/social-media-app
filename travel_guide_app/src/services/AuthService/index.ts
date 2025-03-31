@@ -1,9 +1,10 @@
 "use server";
 
-import axiosInstance from "@/lib/AxiosInstance";
-// import axiosInstance from "@/lib/AxiosInstance";
+// import axiosInstance from "@/src/lib/AxiosInstance";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
+import { jwtDecode } from "jwt-decode";
+import axiosInstance from "@src/lib/AxiosInstance";
 
 export const registerUser = async (userData: FieldValues) => {
   try {
@@ -24,6 +25,7 @@ export const loginUser = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/auth/login", userData);
 
+    console.log(data);
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
       cookies().set("refreshToken", data?.data?.refreshToken);
@@ -35,9 +37,11 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
-export const logout = () => {
-  cookies().delete("accessToken");
-  cookies().delete("refreshToken");
+export const logout = async () => {
+
+  const cookieStore = cookies();
+  cookieStore.set("accessToken", "", { maxAge: 0 });
+  cookieStore.set("refreshToken", "", { maxAge: 0 });
 };
 
 export const getCurrentUser = async () => {
@@ -49,9 +53,8 @@ export const getCurrentUser = async () => {
     decodedToken = await jwtDecode(accessToken);
     return {
       _id: decodedToken._id,
-      name: decodedToken.name,
+      username: decodedToken.name,
       email: decodedToken.email,
-      mobileNumber: decodedToken.mobileNumber,
       role: decodedToken.role,
       status: decodedToken.status,
       profilePhoto: decodedToken.profilePhoto,

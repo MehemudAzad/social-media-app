@@ -13,10 +13,6 @@ export const siteConfig = {
       href: "/profile",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
-    },
-    {
       label: "Pricing",
       href: "/pricing",
     },

@@ -1,7 +1,14 @@
 "use client";
 
+import { useUser } from "@src/context/user.provider";
+import { logout } from "@src/services/AuthService";
 import { Avatar } from "@heroui/avatar";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@heroui/dropdown";
 // import { Avatar } from "@heroui/avatar";
 // import {
 //   Dropdown,
@@ -14,6 +21,12 @@ import { useRouter } from "next/navigation";
 
 export default function NavbarDropdown() {
   const router = useRouter();
+  const { user, setIsLoading: userLoading } = useUser();
+
+  const handleLogout = () => {
+    logout();
+    userLoading(true);
+  };
 
   const handleNavigation = (pathname: string) => {
     router.push(pathname);
@@ -22,7 +35,7 @@ export default function NavbarDropdown() {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Avatar className="cursor-pointer" name="Joe" />
+        <Avatar className="cursor-pointer" src={user?.profilePhoto} />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem onClick={() => handleNavigation("/profile")}>
@@ -34,7 +47,12 @@ export default function NavbarDropdown() {
         <DropdownItem onClick={() => handleNavigation("/profile/create-post")}>
           Create Post
         </DropdownItem>
-        <DropdownItem key="delete" className="text-danger" color="danger">
+        <DropdownItem
+          onClick={() => handleLogout()}
+          key="delete"
+          className="text-danger"
+          color="danger"
+        >
           Logout
         </DropdownItem>
       </DropdownMenu>
