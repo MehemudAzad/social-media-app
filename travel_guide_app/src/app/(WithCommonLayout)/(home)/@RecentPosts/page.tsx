@@ -22,7 +22,7 @@ export default async function RecentPosts() {
       </div>
       <div className="flex justify-center">
         <Button className="rounded-md bg-default-900 text-default" size="md">
-          <Link href="/found-items">See All</Link>
+          <Link href="/news-feed">See All</Link>
         </Button>
       </div>
     </Container>

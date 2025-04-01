@@ -12,12 +12,12 @@ const createPostIntoDB = async (payload: TItem, images: TImageFiles) => {
 };
 
 const getAllPosts = async () => {
-  const result = await Post.find({}).populate('author', 'name email');
+  const result = await Post.find({}).populate('author', 'username email');
   return result;
 };
 
 const getPostById = async (postId: string) => {
-  const result = await Post.findById(postId).populate('author', 'name email');
+  const result = await Post.findById(postId).populate('author', 'username email');
   return result;
 };
 
