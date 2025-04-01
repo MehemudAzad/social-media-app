@@ -11,14 +11,14 @@ import {
   useForm,
 } from "react-hook-form";
 import FXInput from "@src/components/form/FXInput";
-import TiptapEditor from "@src/components/UI/TextEditor/textEditor";
-import { useState } from "react";
+// import TiptapEditor from "@src/components/UI/TextEditor/textEditor";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useCreatePost } from "@src/hooks/post.hook";
 import { useRouter } from "next/navigation";
 import { useUser } from "@src/context/user.provider";
 // import TiptapEditor from "@/components/UI/textEditor";
 
-export default function page() {
+export default function Page() {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
   const { user } = useUser();
@@ -67,6 +67,8 @@ export default function page() {
 
     formData.append("data", JSON.stringify(postData));
 
+    console.log(formData);
+
     for (let image of imageFiles) {
       formData.append("itemImages", image);
     }
@@ -94,9 +96,11 @@ export default function page() {
     }
   };
 
-  if (!createPostPending && isSuccess) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (!createPostPending && isSuccess) {
+      router.push("/");
+    }
+  }, [createPostPending, isSuccess, router]);
 
   return (
     <div className="p-5 bg-default-50 rounded-lg">
@@ -152,9 +156,9 @@ export default function page() {
             </div>
           )}
 
-          <div className="max-w-3xl mx-auto mt-10">
+          {/* <div className="max-w-3xl mx-auto mt-10">
             <TiptapEditor />
-          </div>
+          </div> */}
 
           <Divider className="my-5" />
           <div className="flex justify-end">

@@ -11,7 +11,8 @@ import { TUserRole } from '../module/User/user.interface';
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
-
+    console.log(req.headers);
+    console.log("token" , token);
     // checking if the token is missing
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
@@ -25,7 +26,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
     // const { role, userId, iat } = decoded;
     const { role, email } = decoded;
-
+    console.log(role, email);
     // checking if the user is exist
     const user = await User.isUserExistsByEmail(email);
 

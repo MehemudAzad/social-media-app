@@ -2,15 +2,24 @@ import { PostService } from './post.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
+import AppError from '../../errors/AppError';
+import { TImageFiles } from '../../interface/image.interface';
 
 const createPost = catchAsync(async (req, res) => {
-  const result = await PostService.createPost(req.body);
+  if (!req.files) {
+    throw new AppError(400, 'Please upload an image');
+  }
+
+  const item = await PostService.createPostIntoDB(
+    req.body,
+    req.files as TImageFiles
+  );
 
   sendResponse(res, {
-    statusCode: httpStatus.CREATED,
     success: true,
-    message: 'Post created successfully',
-    data: result,
+    statusCode: httpStatus.OK,
+    message: 'Item created successfully',
+    data: item,
   });
 });
 

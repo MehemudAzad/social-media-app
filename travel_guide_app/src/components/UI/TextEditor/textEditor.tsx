@@ -22,6 +22,7 @@ const TiptapEditor = () => {
       // Add other extensions like Heading or Image here
     ],
     content,
+    immediatelyRender: false,
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
     },

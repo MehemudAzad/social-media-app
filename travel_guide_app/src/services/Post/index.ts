@@ -10,16 +10,17 @@ export const createPost = async (formData: FormData): Promise<any> => {
     // const cookieStore = await cookies();
     // const accessToken = cookieStore.get("accessToken")?.value;
     // console.log(accessToken);
-    const { data } = await axiosInstance.post("/post", formData, {
+    console.log("create post hit");
+    const { data } = await axiosInstance.post("/post/create", formData, {
       headers: {
         // Authorization: `${accessToken}`, // ✅ Attach token manually
         "Content-Type": "multipart/form-data",
       },
     });
 
-    // revalidateTag("posts");
+    revalidateTag("posts");
 
-    return data;
+    // return data;
   } catch (error) {
     console.log(error);
     throw new Error("Failed to create post");

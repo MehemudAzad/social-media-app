@@ -12,15 +12,33 @@ import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useEffect } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function RegisterPage() {
-  const { mutate: handleUserRegistration, isPending } = useUserRegistration();
+  const {
+    mutate: handleUserRegistration,
+    isPending,
+    isSuccess,
+  } = useUserRegistration();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+  const router = useRouter();
 
   //   useEffect(() => {
   //     if (isPending) {
   //       // Handle Loading satate
   //     }
   //   }, [isPending]);
+
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      if (redirect) {
+        router.push(redirect);
+      } else {
+        router.push("/");
+      }
+    }
+  }, [isPending, isSuccess]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userData = {
