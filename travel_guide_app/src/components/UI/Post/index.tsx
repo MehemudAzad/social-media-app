@@ -80,13 +80,6 @@ export default function Post({ post }: any) {
 
         <div className="mt-4 flex gap-5">
           {email !== loggedInUser?.email && (
-            <>
-              <Button variant="light" className="flex-1">
-                Comment
-              </Button>
-            </>
-          )}
-          {email !== loggedInUser?.email && (
             <div className="w-[1px] bg-default-200" />
           )}
           <Button variant="light" className="flex-1">
@@ -95,9 +88,13 @@ export default function Post({ post }: any) {
           <Button variant="light" className="flex-1">
             Comment
           </Button>
-          <Button variant="light" className="flex-1">
-            Share
-          </Button>
+          {email !== loggedInUser?.email && (
+            <>
+              <Button variant="light" className="flex-1">
+                Share
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </div>

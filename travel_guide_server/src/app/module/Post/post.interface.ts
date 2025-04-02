@@ -3,7 +3,6 @@ import { Types, Model } from 'mongoose';
 export type TPost = {
   title: string;
   content?: string;
-  category?: 'Web' | 'Software Engineering' | 'AI' | 'Gadgets' | 'Other';
   tags?: string[];
   author?: Types.ObjectId; // Reference to User
   images: string[];

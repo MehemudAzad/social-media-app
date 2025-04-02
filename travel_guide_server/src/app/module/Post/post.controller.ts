@@ -18,7 +18,7 @@ const createPost = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Item created successfully',
+    message: 'Post created successfully',
     data: item,
   });
 });
@@ -53,8 +53,21 @@ const getPostById = catchAsync(async (req, res) => {
   });
 });
 
+const deleteItem = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  await PostService.deletePostFromDB(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Post deleted successfully',
+    data: null,
+  });
+});
+
 export const PostController = {
   createPost,
   getAllPosts,
   getPostById,
+  deleteItem
 };

@@ -1,6 +1,6 @@
 import express from 'express';
 import { PostController } from './post.controller';
-import validateRequest from '../../middlewares/validateRequest';
+// import validateRequest from '../../middlewares/validateRequest';
 import { parseBody } from '../../middlewares/bodyParser';
 import { multerUpload } from '../../config/multer.config';
 import auth from '../../middlewares/auth';
@@ -32,5 +32,7 @@ router.post(
   // validateRequest(ItemValidation.createItemValidationSchema),
   PostController.createPost
 );
+
+router.delete('/:id', auth(USER_ROLE.USER), PostController.deleteItem);
 
 export const PostRoutes = router;

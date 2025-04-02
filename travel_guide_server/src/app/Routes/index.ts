@@ -19,6 +19,10 @@ const moduleRoutes = [
     path: '/post',
     route: PostRoutes,
   },
+  {
+    path: '/search-post',
+    route: PostRoutes,
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
