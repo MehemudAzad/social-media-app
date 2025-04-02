@@ -11,7 +11,6 @@ const PostSchema = new Schema({
     isPremium: { type: Boolean, default: false },
     upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     downvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     createdAt: { type: Date, default: Date.now }
 });
 

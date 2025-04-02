@@ -9,7 +9,6 @@ export type TPost = {
   isPremium: boolean;
   upvotes?: Types.ObjectId[]; // Users who upvoted
   downvotes?: Types.ObjectId[]; // Users who downvoted
-  comments?: Types.ObjectId[]; // References to Comment documents
   createdAt?: Date;
 }
 

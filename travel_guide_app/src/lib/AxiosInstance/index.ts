@@ -15,6 +15,7 @@ const getAccessToken = async () => {
 axiosInstance.interceptors.request.use(
   async function (config) {
     const accessToken = await getAccessToken();
+
     if (accessToken) {
       config.headers.Authorization = `${accessToken}`;
     }

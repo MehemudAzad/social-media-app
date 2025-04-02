@@ -55,3 +55,10 @@ export interface IUser {
   updatedAt?: string;
   __v?: number;
 }
+
+export interface ISearchResult {
+  title: string;
+  content: string;
+  thumbnail: string;
+  id: string;
+}

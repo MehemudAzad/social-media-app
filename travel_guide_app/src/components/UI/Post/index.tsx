@@ -11,8 +11,10 @@ import { Button } from "@heroui/button";
 // import ClaimRequestModal from "../../modals/ClaimRequestModal";
 import { useUser } from "@src/context/user.provider";
 import ImageGallery from "./ImageGalary";
-// import AuthenticationModal from "../../modals/AuthenticationModal";
-// import ImageGallery from "./ImageGalary";
+// import CommentsModal from "@src/components/modules/post/CommentsModal";
+import { getCommentByPostId } from "@src/services/Comment";
+import { CommentsModal } from "@src/components/modules/post/CommentsModal";
+// import CommentsModal from "@src/components/modules/post/CommentsModal";
 
 // interface IProps {
 //   post: IPost;
@@ -85,9 +87,10 @@ export default function Post({ post }: any) {
           <Button variant="light" className="flex-1">
             Like
           </Button>
-          <Button variant="light" className="flex-1">
+          {/* <Button variant="light" className="flex-1">
             Comment
-          </Button>
+          </Button> */}
+          <CommentsModal postId={_id.toString()} />
           {email !== loggedInUser?.email && (
             <>
               <Button variant="light" className="flex-1">
